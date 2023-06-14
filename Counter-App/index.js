@@ -2,13 +2,24 @@ let count = document.getElementById("count");
 let incbtn = document.getElementById("increment");
 let decbtn = document.getElementById("decrement");
 let resbtn = document.getElementById("reset");
+let records = document.getElementById("records");
+
+let counter = 0;
 
 function increment() { 
-    count.innerText = parseInt(count.innerText) + 1;
+    count.textContent = parseInt(count.textContent) + 1;
+    counter++;
 }
 
 function decrement() { 
-    count.innerText = parseInt(count.innerText) - 1;
+    count.textContent = parseInt(count.textContent) - 1;
+    counter--;
+} 
+
+function reset() { 
+    records.textContent += counter.toString() + " , ";
+    count.textContent = 0;
+    counter = 0;
 }
 
 incbtn.onclick = () => { 
@@ -20,5 +31,5 @@ decbtn.onclick = () => {
 }
 
 resbtn.onclick = () => { 
-    count.innerText = 0;
+    reset();
 }
