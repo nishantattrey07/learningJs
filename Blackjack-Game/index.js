@@ -28,6 +28,14 @@ function updatePlayerCard(cards) {
     });
 }
 
+function updateDealerCard(cards) { 
+    dealerhand.textContent = "";
+    cards.forEach(card => { 
+        const cardElement = createCard(card.suit, card.rank);
+        dealerhand.appendChild(cardElement);
+    });
+}
+
 function createCard(suits, rank) { 
     const cardElement = document.createElement("div");
     cardElement.classList.add("card");
@@ -35,11 +43,16 @@ function createCard(suits, rank) {
     return cardElement;
 }
 const playerCards = [
-  { suit: "Hearts", rank: "Ace" },
-  { suit: "Spades", rank: "7" }
+  { suit: getRandomSuit(suits), rank: getRandomRank(rank)},
+  { suit: getRandomSuit(suits), rank: getRandomRank(rank)}
+];
+
+const dealerCards = [
+    { suit: getRandomSuit(suits), rank: getRandomRank(rank) },
+    { suit: getRandomSuit(suits), rank: getRandomRank(rank) }
 ];
 
 hitbtn.onclick = () => {
-   
     updatePlayerCard(playerCards);
+    updateDealerCard(dealerCards);
 }
