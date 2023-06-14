@@ -17,7 +17,10 @@ function decrement() {
 } 
 
 function reset() { 
-    records.textContent += counter.toString() + " , ";
+    if (records.textContent !== "") {
+    records.textContent += ", ";
+    }
+    records.textContent += counter.toString();
     count.textContent = 0;
     counter = 0;
 }
