@@ -2,6 +2,8 @@
 const suits = ["Heart", "Diamond", "Club", "Spade"];
 const rank = [2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King", "Ace"];
 const checkRank = ["Jack", "Queen", "King",];
+let playerCards = [];
+let dealerCards = [];
 
 // variable declaration
 let playerhand = document.getElementById("player-hand");
@@ -10,6 +12,7 @@ let dealbtn = document.getElementById("deal-btn");
 let hitbtn = document.getElementById("hit-btn");
 let standbtn = document.getElementById("stand-btn");
 let splitbtn = document.getElementById("split-btn");
+let resetbtn = document.getElementById("reset-btn");
 let hiddiv = document.getElementById("game-container");
 let hiddiv1 = document.getElementById("resetdiv");
 let usrScore = document.getElementById("player-score");
@@ -53,7 +56,7 @@ function updatePlayerCard(cards) {
         const cardElement = createCard(card.suit, card.rank);
         playerhand.appendChild(cardElement);
         // updating scores
-        if (card.rank >= 2 && card.rank < 10) {
+        if (parseInt(card.rank) >= 2 && parseInt(card.rank) < 10) {
             userScore += parseInt(card.rank);
             usrScore.textContent = userScore;
         }
@@ -73,24 +76,120 @@ function updateDealerCard(cards) {
     cards.forEach(card => { 
         const cardElement = createCard(card.suit, card.rank);
         dealerhand.appendChild(cardElement);
+        if (parseInt(card.rank) >= 2 && parseInt(card.rank) <= 10) {
+            dealerScore += parseInt(card.rank);
+            dlrScore.textContent = dealerScore;
+        }
+        else if (checkRank.includes(card.rank)) {
+            dealerScore += 10;
+            dlrScoretextContent = dealerScore;
+        }
+        else if (card.rank === "Ace") { 
+            dealerScore += 11;
+            dlrScore.textContent = dealerScore;
+        }
     });
 }
 
+function stand() { 
+    dealerCards.push({ suit: getRandomSuit(suits), rank: getRandomRank(rank) });
+    // dealerScore is equals to zero so that the previous numbers that are beig added don't add again
+    dealerScore = 0;
+    updateDealerCard(dealerCards);
+    check();
+};
 
-const playerCards = [
+function check() { 
+        if (dealerScore > userScore) {
+        alert("You Lost!");
+        hiddiv.style.display = "none";
+        hiddiv1.style.display = "none";
+        dealbtn.style.visibility = "visible";
+    }
+    else if (dealerScore === 21) { 
+        alert("You Lost!");
+        hiddiv.style.display = "none";
+        hiddiv1.style.display = "none";
+        dealbtn.style.visibility = "visible";
+    }
+     else if (dealerScore < userScore || dealerScore >21) {
+        alert("You Won!");
+        hiddiv.style.display = "none";
+        hiddiv1.style.display = "none";
+        dealbtn.style.visibility = "visible";
+    }
+    else if (dealerScore < 17 || dealerScore <userScore) {
+            stand;
+            
+    }
+
+    else if (dealerScore === userScore) { 
+        alert("Draw");
+        hiddiv.style.display = "none";
+        hiddiv1.style.display = "none";
+        dealbtn.style.visibility = "visible";
+    }
+};
+
+
+
+// This function will be called when the deal button is clicked
+dealbtn.onclick = () => {
+      // Update the player and dealer hands with new cards
+playerCards = [
     { suit: getRandomSuit(suits), rank: getRandomRank(rank)},
     { suit: getRandomSuit(suits), rank: getRandomRank(rank)}
 ];
 
-const dealerCards = [
-    { suit: getRandomSuit(suits), rank: getRandomRank(rank) },
+dealerCards = [
     { suit: getRandomSuit(suits), rank: getRandomRank(rank) }
 ];
-
-dealbtn.onclick = () => {
     hiddiv.style.display = "block";
     hiddiv1.style.display = "block";
-    dealbtn.style.display = "none";
+    dealbtn.style.visibility = "hidden";
     updatePlayerCard(playerCards);
     updateDealerCard(dealerCards);
-}
+};
+
+
+// This function will be called when the hit button is clicked
+hitbtn.onclick = () => { 
+    playerCards.push({ suit: getRandomSuit(suits), rank: getRandomRank(rank) });
+    // UserScore is equals to zero so that the previous numbers that are beig added don't add again
+    userScore = 0;
+    updatePlayerCard(playerCards);
+    if (userScore > 21) { 
+        alert("You Lost");
+        hiddiv.style.display = "none";
+        hiddiv1.style.display = "none";
+        dealbtn.style.visibility = "visible";
+    }
+};
+
+// This function will be called when the stand button is clicked
+standbtn.onclick = () => { 
+    stand();    
+};
+
+
+
+resetbtn.onclick = () => {
+  // Reset the player and dealer hands
+  playerCards.length = 0;
+  dealerCards.length = 0;
+
+  // Reset the player and dealer scores
+  userScore = 0;
+  dealerScore = 0;
+  usrScore.textContent = userScore;
+  dlrScore.textContent = dealerScore;
+
+  // Clear the player and dealer hands on the screen
+  playerhand.textContent = "";
+  dealerhand.textContent = "";
+
+  // Hide the game elements and show the deal button
+  hiddiv.style.display = "none";
+  hiddiv1.style.display = "none";
+  dealbtn.style.visibility = "visible";
+};
