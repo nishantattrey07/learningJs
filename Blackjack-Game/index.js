@@ -82,7 +82,7 @@ function updateDealerCard(cards) {
         }
         else if (checkRank.includes(card.rank)) {
             dealerScore += 10;
-            dlrScoretextContent = dealerScore;
+            dlrScore.textContent = dealerScore;
         }
         else if (card.rank === "Ace") { 
             dealerScore += 11;
@@ -175,8 +175,12 @@ hitbtn.onclick = () => {
     // UserScore is equals to zero so that the previous numbers that are beig added don't add again
     userScore = 0;
     updatePlayerCard(playerCards);
-    if (userScore > 21) { 
+    if (userScore > 21) {
         alert("You Lost! Your last card: " + playerCards[playerCards.length - 1].rank + " of " + playerCards[playerCards.length - 1].suit);
+        reset();
+    }
+    else if (userScore === 21) { 
+        alert("You Won! Your last card: " + playerCards[playerCards.length - 1].rank + " of " + playerCards[playerCards.length - 1].suit);
         reset();
     }
 };
