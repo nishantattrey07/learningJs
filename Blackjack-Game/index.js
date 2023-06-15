@@ -101,20 +101,25 @@ function stand() {
 
 function check() { 
     if (dealerScore > userScore && dealerScore <= 21) {
-        // alert("You Lost!");
-         alert("You Lost! Dealer's last card: " + dealerCards[dealerCards.length - 1].rank + " of " + dealerCards[dealerCards.length - 1].suit);
 
-        reset();
+        setTimeout(() => { 
+            alert("You Lost!");
+            reset();
+        }, 100);
+        
     }
     else if (dealerScore === 21 && userScore !== 21) { 
-        // alert("You Lost!");
-         alert("You Lost! Dealer's last card: " + dealerCards[dealerCards.length - 1].rank + " of " + dealerCards[dealerCards.length - 1].suit);
-        reset();
+        setTimeout(() => { 
+            alert("You Lost!");
+            reset();
+        }, 100);
     }
     else if ((dealerScore < userScore && userScore <= 21) || dealerScore > 21) {
-        // alert("You Won!");
-         alert("You Won! Dealer's last card: " + dealerCards[dealerCards.length - 1].rank + " of " + dealerCards[dealerCards.length - 1].suit);
-        reset();
+        setTimeout(() => { 
+            alert("You Won!");
+            reset();
+        }, 100);
+        
     }
     else if (dealerScore < 17 || dealerScore < userScore) {
         dealerCards.push({ suit: getRandomSuit(suits), rank: getRandomRank(rank) });
@@ -123,8 +128,12 @@ function check() {
         check();
     }
     else if (dealerScore === userScore) { 
-        alert("Draw");
-        reset();
+
+        setTimeout(() => {
+            alert("Draw");
+            reset();
+        },100);
+        
     }
 };
 
@@ -176,12 +185,19 @@ hitbtn.onclick = () => {
     userScore = 0;
     updatePlayerCard(playerCards);
     if (userScore > 21) {
-        alert("You Lost! Your last card: " + playerCards[playerCards.length - 1].rank + " of " + playerCards[playerCards.length - 1].suit);
-        reset();
+        
+        setTimeout(() => {
+            alert("You Lost!");
+            reset();
+        }, 100); 
     }
     else if (userScore === 21) { 
-        alert("You Won! Your last card: " + playerCards[playerCards.length - 1].rank + " of " + playerCards[playerCards.length - 1].suit);
-        reset();
+        
+         setTimeout(() => {
+            alert("You Won!");
+            reset();
+        }, 100); 
+       
     }
 };
 
@@ -195,3 +211,4 @@ standbtn.onclick = () => {
 resetbtn.onclick = () => { 
     reset();
 };
+
