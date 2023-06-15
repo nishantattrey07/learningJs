@@ -101,33 +101,28 @@ function stand() {
 
 function check() { 
         if (dealerScore > userScore) {
-        alert("You Lost!");
-        hiddiv.style.display = "none";
-        hiddiv1.style.display = "none";
-        dealbtn.style.visibility = "visible";
+            alert("You Lost!");
+        updatePlayerCard(playerCards);
+        updateDealerCard(dealerCards);
     }
     else if (dealerScore === 21) { 
-        alert("You Lost!");
-        hiddiv.style.display = "none";
-        hiddiv1.style.display = "none";
-        dealbtn.style.visibility = "visible";
+            alert("You Lost!");
+        updatePlayerCard(playerCards);
+        updateDealerCard(dealerCards);
     }
      else if (dealerScore < userScore || dealerScore >21) {
-        alert("You Won!");
-        hiddiv.style.display = "none";
-        hiddiv1.style.display = "none";
-        dealbtn.style.visibility = "visible";
+            alert("You Won!");
+        updatePlayerCard(playerCards);
+        updateDealerCard(dealerCards);
     }
     else if (dealerScore < 17 || dealerScore <userScore) {
-            stand;
+            stand();
             
     }
 
     else if (dealerScore === userScore) { 
         alert("Draw");
-        hiddiv.style.display = "none";
-        hiddiv1.style.display = "none";
-        dealbtn.style.visibility = "visible";
+
     }
 };
 
