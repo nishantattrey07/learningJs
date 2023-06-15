@@ -100,32 +100,54 @@ function stand() {
 };
 
 function check() { 
-        if (dealerScore > userScore) {
-            alert("You Lost!");
-        updatePlayerCard(playerCards);
-        updateDealerCard(dealerCards);
-    }
-    else if (dealerScore === 21) { 
-            alert("You Lost!");
-        updatePlayerCard(playerCards);
-        updateDealerCard(dealerCards);
-    }
-     else if (dealerScore < userScore || dealerScore >21) {
-            alert("You Won!");
-        updatePlayerCard(playerCards);
-        updateDealerCard(dealerCards);
-    }
-    else if (dealerScore < 17 || dealerScore <userScore) {
-            stand();
-            
-    }
+    if (dealerScore > userScore && dealerScore <= 21) {
+        // alert("You Lost!");
+         alert("You Lost! Dealer's last card: " + dealerCards[dealerCards.length - 1].rank + " of " + dealerCards[dealerCards.length - 1].suit);
 
+        reset();
+    }
+    else if (dealerScore === 21 && userScore !== 21) { 
+        // alert("You Lost!");
+         alert("You Lost! Dealer's last card: " + dealerCards[dealerCards.length - 1].rank + " of " + dealerCards[dealerCards.length - 1].suit);
+        reset();
+    }
+    else if ((dealerScore < userScore && userScore <= 21) || dealerScore > 21) {
+        // alert("You Won!");
+         alert("You Won! Dealer's last card: " + dealerCards[dealerCards.length - 1].rank + " of " + dealerCards[dealerCards.length - 1].suit);
+        reset();
+    }
+    else if (dealerScore < 17 || dealerScore < userScore) {
+        dealerCards.push({ suit: getRandomSuit(suits), rank: getRandomRank(rank) });
+        dealerScore = 0;
+        updateDealerCard(dealerCards);
+        check();
+    }
     else if (dealerScore === userScore) { 
         alert("Draw");
-
+        reset();
     }
 };
 
+function reset() { 
+      // Reset the player and dealer hands
+  playerCards.length = 0;
+  dealerCards.length = 0;
+
+  // Reset the player and dealer scores
+  userScore = 0;
+  dealerScore = 0;
+  usrScore.textContent = userScore;
+  dlrScore.textContent = dealerScore;
+
+  // Clear the player and dealer hands on the screen
+  playerhand.textContent = "";
+  dealerhand.textContent = "";
+
+  // Hide the game elements and show the deal button
+  hiddiv.style.display = "none";
+  hiddiv1.style.display = "none";
+  dealbtn.style.visibility = "visible";
+};
 
 
 // This function will be called when the deal button is clicked
@@ -154,10 +176,8 @@ hitbtn.onclick = () => {
     userScore = 0;
     updatePlayerCard(playerCards);
     if (userScore > 21) { 
-        alert("You Lost");
-        hiddiv.style.display = "none";
-        hiddiv1.style.display = "none";
-        dealbtn.style.visibility = "visible";
+        alert("You Lost! Your last card: " + playerCards[playerCards.length - 1].rank + " of " + playerCards[playerCards.length - 1].suit);
+        reset();
     }
 };
 
@@ -168,23 +188,6 @@ standbtn.onclick = () => {
 
 
 
-resetbtn.onclick = () => {
-  // Reset the player and dealer hands
-  playerCards.length = 0;
-  dealerCards.length = 0;
-
-  // Reset the player and dealer scores
-  userScore = 0;
-  dealerScore = 0;
-  usrScore.textContent = userScore;
-  dlrScore.textContent = dealerScore;
-
-  // Clear the player and dealer hands on the screen
-  playerhand.textContent = "";
-  dealerhand.textContent = "";
-
-  // Hide the game elements and show the deal button
-  hiddiv.style.display = "none";
-  hiddiv1.style.display = "none";
-  dealbtn.style.visibility = "visible";
+resetbtn.onclick = () => { 
+    reset();
 };
