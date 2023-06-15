@@ -1,9 +1,22 @@
 // Using this array to randomly select the cards for Player and Dealer
 const suits = ["Heart", "Diamond", "Club", "Spade"];
 const rank = [2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King", "Ace"];
+
+// variable declaration
 let playerhand = document.getElementById("player-hand");
 let dealerhand = document.getElementById("dealer-hand");
+let dealbtn = document.getElementById("deal-btn");
 let hitbtn = document.getElementById("hit-btn");
+let standbtn = document.getElementById("stand-btn");
+let splitbtn = document.getElementById("split-btn");
+let hiddiv = document.getElementById("game-container");
+let hiddiv1 = document.getElementById("resetdiv");
+
+
+// starting service
+hiddiv.style.display = "none";
+hiddiv1.style.display = "none";
+splitbtn.style.display = "none";
 
 
 // This function will be called to select the suit from suits array
@@ -52,7 +65,10 @@ const dealerCards = [
     { suit: getRandomSuit(suits), rank: getRandomRank(rank) }
 ];
 
-hitbtn.onclick = () => {
+dealbtn.onclick = () => {
+    hiddiv.style.display = "block";
+    hiddiv1.style.display = "block";
+    dealbtn.style.display = "none";
     updatePlayerCard(playerCards);
     updateDealerCard(dealerCards);
 }

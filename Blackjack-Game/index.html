@@ -8,20 +8,51 @@
 </head>
 <body>
       <h1>Blackjack Game</h1>
+
+      <div class="starting">
+        <!-- <h2>Starting the game</h2>
+        <p>Click the "Deal" button to start the game.</p>
+        <p>Click the "Hit" button to add a card to your hand.</p>
+        <p>Click the "Stand" button to stop adding cards to your hand.</p>
+        <p>Click the "Reset" button to start a new game.</p> -->
+
+        <button id="deal-btn" class="button">Deal</button>
+      </div>
   
-  <div class="game-container">
+  <div class="game-container" id="game-container">
+    <div class="container">
+       <div class="hand-section">
+      <div class="hand-label">Player</div>
     <div id="player-hand" class="hand">
       <!-- Player's hand cards will go here -->
     </div>
+       </div>
+        <div class="score-section">
+      <div class="score-label">Player Score:</div>
+      <div id="player-score" class="score">0</div>
+    </div>
+    <div class="hand-section">
+    <div class="hand-label">Dealer</div>
     <div id="dealer-hand" class="hand">
       <!-- Dealer's hand cards will go here -->
+    </div>
+    </div>
+     <div class="score-section">
+      <div class="score-label">Dealer Score:</div>
+      <div id="dealer-score" class="score">0</div>
     </div>
 
     <div id="buttons">
       <button id="hit-btn" class="button">Hit</button>
       <button id="stand-btn" class="button">Stand</button>
-      <button id="reset-btn" class="button">Reset</button>
+      <button id="split-btn" class="button">Split</button>
+      
     </div>
+    </div>
+  </div>
+
+  <div id="resetdiv">
+    <button id="reset-btn" class="button">Reset</button>
   </div>
 
   <script src="index.js"></script>
