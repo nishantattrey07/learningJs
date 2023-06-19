@@ -1,4 +1,3 @@
-
 const saveTabBtn = document.getElementById("saveTabBtn");
 const saveLinkBtn = document.getElementById("saveLinkBtn");
 const deleteBtn = document.getElementById("deleteBtn");
@@ -6,8 +5,18 @@ const inputField = document.getElementById("linkInput");
 const nameField = document.getElementById("linkName");
 const linkList = document.getElementById("linkList");
 
-const linkArray = [];
-const nameArray = [];
+let linkArray = [];
+let nameArray = [];
+
+// Check if data exists in LocalStorage and retrieve it
+if (localStorage.getItem('linkArray')) {
+    linkArray = JSON.parse(localStorage.getItem('linkArray'));
+}
+
+if (localStorage.getItem('nameArray')) {
+    nameArray = JSON.parse(localStorage.getItem('nameArray'));
+}
+renderLink();
 function renderLink() {
     linkList.textContent = "";
     for (let i = 0; i < linkArray.length; i++) {
@@ -20,7 +29,8 @@ function renderLink() {
         linkList.appendChild(listItem);
     }
 }
-function saveLink() {
+
+    function saveLink() {
     const link = inputField.value.trim();
     const name = nameField.value.trim();
 
@@ -31,14 +41,19 @@ function saveLink() {
         } else {
         linkArray.push(link);
         nameArray.push(link);
-    }
+        }
         inputField.value = ""; // Clear the input fields after adding the link
         nameField.value = "";
+
+        // Save the updated arrays to LocalStorage
+        localStorage.setItem('linkArray', JSON.stringify(linkArray));
+        localStorage.setItem('nameArray', JSON.stringify(nameArray));
+
         renderLink();
     } else {
         alert("Please enter a link");
     }
-}
+    }
 
 saveLinkBtn.onclick = () => {
     saveLink();
@@ -48,5 +63,8 @@ deleteBtn.onclick = () => {
     linkArray.length = 0;
     nameArray.length = 0;
     linkList.textContent = "";
-};
 
+    // Clear the arrays from LocalStorage
+    localStorage.removeItem('linkArray');
+    localStorage.removeItem('nameArray');
+};
