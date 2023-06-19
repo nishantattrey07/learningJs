@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+  "name": "Lead Saver",
+  "version": "1.0",
+  "description": "A Chrome extension that saves links.",
+  "browser_action": {
+    "default_title": "Lead Saver",
+    "default_popup": "index.html"
+  },
+  "permissions": [
+    "activeTab"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["index.js"],
+      "css": ["index.css"]
+    }
+  ]
+}
