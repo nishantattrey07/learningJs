@@ -46,6 +46,7 @@ function getRandomRank(rank) {
 function createCard(suits, rank) { 
     const cardElement = document.createElement("div");
     cardElement.classList.add("card");
+    cardElement.style.color = "black";
     cardElement.textContent = `${rank} of ${suits}`;
     return cardElement;
 }
