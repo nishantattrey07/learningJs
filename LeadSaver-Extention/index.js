@@ -31,63 +31,62 @@ function renderLink() {
 }
 
 function saveTab() { 
-     if (typeof chrome !== "undefined" && chrome.tabs) {
-  // Chrome browser
-  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    var currentTab = tabs[0];
-    var link = currentTab.url;
-      var name = currentTab.title;
-            if (link !== "") {
-            if (name !== "") {
-            linkArray.push(link);
-            nameArray.push(name);
+        if (typeof chrome !== "undefined" && chrome.tabs) {
+    // Chrome browser
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        var currentTab = tabs[0];
+        var link = currentTab.url;
+        var name = currentTab.title;
+                if (link !== "") {
+                if (name !== "") {
+                linkArray.push(link);
+                nameArray.push(name);
+                } else {
+                linkArray.push(link);
+                nameArray.push(link);
+                }
+                inputField.value = ""; // Clear the input fields after adding the link
+                nameField.value = "";
+            
+                // Save the updated arrays to LocalStorage
+                localStorage.setItem('linkArray', JSON.stringify(linkArray));
+                localStorage.setItem('nameArray', JSON.stringify(nameArray));
+            
+                renderLink();
             } else {
-            linkArray.push(link);
-            nameArray.push(link);
+                alert("Please enter a link");
             }
-            inputField.value = ""; // Clear the input fields after adding the link
-            nameField.value = "";
-        
-            // Save the updated arrays to LocalStorage
-            localStorage.setItem('linkArray', JSON.stringify(linkArray));
-            localStorage.setItem('nameArray', JSON.stringify(nameArray));
-        
-            renderLink();
-        } else {
-            alert("Please enter a link");
-        }
-  });
-} else if (typeof browser !== "undefined" && browser.tabs) {
-  // Firefox browser
-  browser.tabs.query({ active: true, currentWindow: true }).then(function (tabs) {
-    var currentTab = tabs[0];
-    var link = currentTab.url;
-      var name = currentTab.title;
-              if (link !== "") {
-            if (name !== "") {
-            linkArray.push(link);
-            nameArray.push(name);
+    });
+    } else if (typeof browser !== "undefined" && browser.tabs) {
+    // Firefox browser
+    browser.tabs.query({ active: true, currentWindow: true }).then(function (tabs) {
+        var currentTab = tabs[0];
+        var link = currentTab.url;
+        var name = currentTab.title;
+                if (link !== "") {
+                if (name !== "") {
+                linkArray.push(link);
+                nameArray.push(name);
+                } else {
+                linkArray.push(link);
+                nameArray.push(link);
+                }
+                inputField.value = ""; // Clear the input fields after adding the link
+                nameField.value = "";
+            
+                // Save the updated arrays to LocalStorage
+                localStorage.setItem('linkArray', JSON.stringify(linkArray));
+                localStorage.setItem('nameArray', JSON.stringify(nameArray));
+            
+                renderLink();
             } else {
-            linkArray.push(link);
-            nameArray.push(link);
+                alert("Please enter a link");
             }
-            inputField.value = ""; // Clear the input fields after adding the link
-            nameField.value = "";
-        
-            // Save the updated arrays to LocalStorage
-            localStorage.setItem('linkArray', JSON.stringify(linkArray));
-            localStorage.setItem('nameArray', JSON.stringify(nameArray));
-        
-            renderLink();
-        } else {
-            alert("Please enter a link");
-        }
 
-  });
-} else {
-  console.log("Unsupported browser");
-}
-
+    });
+    } else {
+    console.log("Unsupported browser");
+    }
 };
     function saveLink() {
     const link = inputField.value.trim();
